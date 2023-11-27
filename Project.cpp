@@ -10,8 +10,8 @@ using namespace std;
 #define ySize 15
 bool exitFlag;
 
-const objPos at;
-const objPos star;
+objPos at;
+objPos star;
 
 void Initialize(void);
 void GetInput(void);
@@ -45,8 +45,8 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
     //boarder testing elements
-    objPos at = objPos(14,6,'@');
-    objPos star = objPos(8,9,'*');
+    at = objPos(14,6,'@');
+    star = objPos(14,6,'*');
     
     
     exitFlag = false;
@@ -66,7 +66,7 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     
-    objPos test = objPos(at);
+    
 
     for(int y = 0; y <= ySize; y++ ){
         for(int x = 0; x <= xSize; x++){
@@ -77,10 +77,11 @@ void DrawScreen(void)
             }
             else if (x > 2 && y == 2 )
             {
-                cout << test.getSymbol();
-            }
-            
-            else{
+                 
+                cout << star.getSymbol();
+            }else if(x == 12 && y == 12){
+                cout << at.getSymbol();
+            }else{
                 cout << " ";
             }
         }
