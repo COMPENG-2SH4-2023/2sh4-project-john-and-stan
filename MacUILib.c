@@ -1,5 +1,5 @@
 #include "MacUILib.h"
-
+#include <unistd.h>
 print_ptr MacUILib_printf;
 
 #ifdef WINDOWS

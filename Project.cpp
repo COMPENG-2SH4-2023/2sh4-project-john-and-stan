@@ -6,7 +6,8 @@
 using namespace std;
 
 #define DELAY_CONST 100000
-
+#define sizeX 30
+#define sizeY 15
 bool exitFlag;
 
 void Initialize(void);
@@ -40,7 +41,8 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-
+    
+    
     exitFlag = false;
 }
 
