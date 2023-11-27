@@ -6,9 +6,12 @@
 using namespace std;
 
 #define DELAY_CONST 100000
-#define sizeX 30
-#define sizeY 15
+#define xSize 30
+#define ySize 15
 bool exitFlag;
+
+const objPos at;
+const objPos star;
 
 void Initialize(void);
 void GetInput(void);
@@ -41,6 +44,9 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
+    //boarder testing elements
+    objPos at = objPos(14,6,'@');
+    objPos star = objPos(8,9,'*');
     
     
     exitFlag = false;
@@ -58,9 +64,34 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+    
+    objPos test = objPos(at);
 
-}
+    for(int y = 0; y <= ySize; y++ ){
+        for(int x = 0; x <= xSize; x++){
+            
+            if (x == 0 || x == xSize || y ==0 || y == ySize)
+            {
+                cout << "#";
+            }
+            else if (x > 2 && y == 2 )
+            {
+                cout << test.getSymbol();
+            }
+            
+            else{
+                cout << " ";
+            }
+        }
+        printf("\n");
+    }
+
+    
+
+    } 
+
+
 
 void LoopDelay(void)
 {
