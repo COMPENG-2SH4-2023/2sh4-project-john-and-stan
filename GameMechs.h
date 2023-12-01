@@ -29,6 +29,9 @@ class GameMechs
         GameMechs();
         GameMechs(int boardX, int boardY);
         
+        //destructor
+        ~GameMechs();
+        
         bool getExitFlagStatus();
         void setExitTrue();
 

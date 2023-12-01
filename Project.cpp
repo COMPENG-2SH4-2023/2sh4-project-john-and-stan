@@ -1,17 +1,14 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "GameMechs.h"
 
 
 using namespace std;
 
 #define DELAY_CONST 100000
-#define xSize 30
-#define ySize 15
-bool exitFlag;
 
-objPos at;
-objPos star;
+GameMechs* mechs = nullptr; 
 
 void Initialize(void);
 void GetInput(void);
@@ -27,7 +24,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(mechs->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -44,49 +41,48 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    //boarder testing elements
-    at = objPos(14,6,'@');
-    star = objPos(14,6,'*');
+    mechs = new GameMechs(15,30);
     
     
-    exitFlag = false;
+    
 }
 
 void GetInput(void)
 {
-   
+   if(MacUILib_hasChar()){
+            mechs->setInput(MacUILib_getChar());
+            
+    }else{
+            mechs->setInput(0);
+    }
 }
 
 void RunLogic(void)
 {
-    
+    if(mechs->getInput() == 'a'){
+        mechs->setExitTrue();
+    }
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    
-    
-
-    for(int y = 0; y <= ySize; y++ ){
-        for(int x = 0; x <= xSize; x++){
+    for(int y = 0; y <= 15; y++ ){
+        for(int x = 0; x <= 30; x++){
             
-            if (x == 0 || x == xSize || y ==0 || y == ySize)
+            if (x == 0 || x == 30 || y ==0 || y == 15)
             {
+                //Draw Boarder
                 cout << "#";
-            }
-            else if (x > 2 && y == 2 )
-            {
-                 
-                cout << star.getSymbol();
-            }else if(x == 12 && y == 12){
-                cout << at.getSymbol();
             }else{
                 cout << " ";
             }
         }
         printf("\n");
     }
+    
+    printf("\n");
+    cout << "The xSize is "<< mechs->getBoardSizeX();
 
     
 
@@ -103,6 +99,6 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-  
+    delete mechs;
     MacUILib_uninit();
 }

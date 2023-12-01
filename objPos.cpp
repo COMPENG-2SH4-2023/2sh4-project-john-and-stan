@@ -7,7 +7,7 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
-objPos::objPos(objPos &o)
+objPos::objPos(const objPos &o)
 {
     x = o.x;
     y = o.y;
@@ -50,6 +50,11 @@ bool objPos::isPosEqual(const objPos* refPos)
 {
     return (refPos->x == x && refPos->y == y);
 }
+bool objPos::isPosEqual(int xPos, int yPos)
+{
+    return (yPos== y && xPos == x);
+}
+
 
 char objPos::getSymbolIfPosEqual(const objPos* refPos)
 {
