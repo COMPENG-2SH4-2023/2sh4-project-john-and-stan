@@ -96,10 +96,10 @@ void GameMechs::generateFood(objPos blockOff){
 
     //block off walls
     xBitV[0] = 1;
-    xBitV[boardSizeX-1] = 1;
+    xBitV[boardSizeX-2] = 1;
 
     yBitV[0] = 1;
-    yBitV[boardSizeY-1] = 1;
+    yBitV[boardSizeY-2] = 1;
 
     
     //loops till it chooses non used x

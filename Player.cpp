@@ -8,20 +8,27 @@ Player::Player(GameMechs* thisGMRef)
     int initialX = thisGMRef->getBoardSizeX() / 2;
     int initialY = thisGMRef->getBoardSizeY() / 2;
     playerPos.setObjPos(initialX, initialY, '*');
+    
 
-    // more actions to be included
+    playerPosList = new objPosArrayList();
+    objPos startingState;
+    startingState.setObjPos(initialX,initialY,'*');
+    playerPosList->insertHead(startingState);
+
+
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    delete playerPosList;
 }
 
 void Player::getPlayerPos(objPos &returnPos)
 {
     // return the reference to the playerPos arrray list
-    returnPos.setObjPos(playerPos);
+    playerPosList->getHeadElement(returnPos);
 }
 
 void Player::updatePlayerDir()
@@ -73,22 +80,27 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    // PPA3 Finite State Machine logic
+    //gets head position
+    objPos head;
+    playerPosList->getHeadElement(head);
+    
+    
     switch (myDir) {
         case UP:
-            playerPos.setObjPos(playerPos.x, playerPos.y - 1, '*');
+            head.setObjPos(head.x,head.y - 1, '*');
             break;
 
         case DOWN:
-            playerPos.setObjPos(playerPos.x, playerPos.y + 1, '*');
+            
+            head.setObjPos(head.x,head.y + 1, '*');
             break;
 
         case LEFT:
-            playerPos.setObjPos(playerPos.x - 1, playerPos.y, '*');
+            head.setObjPos(head.x - 1, head.y, '*');
             break;
 
         case RIGHT:
-            playerPos.setObjPos(playerPos.x + 1, playerPos.y, '*');
+            head.setObjPos(head.x + 1, head.y, '*');
             break;
 
         default:
@@ -96,20 +108,28 @@ void Player::movePlayer()
             break;
     }
 
+
+
+
     // PPA3 Boarder wraparound logic
     int boardSizeX = mainGameMechsRef->getBoardSizeX();
     int boardSizeY = mainGameMechsRef->getBoardSizeY();
 
-    if (playerPos.x <= 0) {
-        playerPos.setObjPos(boardSizeX - 2, playerPos.y, '*');
-    } else if (playerPos.x >= boardSizeX - 1) {
-        playerPos.setObjPos(1, playerPos.y, '*');
+    if (head.x <= 0) {
+        head.setObjPos(boardSizeX - 2, head.y, '*');
+    } else if (head.x >= boardSizeX - 1) {
+        head.setObjPos(1, head.y, '*');
     }
 
-    if (playerPos.y <= 0) {
-        playerPos.setObjPos(playerPos.x, boardSizeY - 2, '*');
-    } else if (playerPos.y >= boardSizeY - 1) {
-        playerPos.setObjPos(playerPos.x, 1, '*');
+    if (head.y <= 0) {
+        head.setObjPos(head.x, boardSizeY - 2, '*');
+    } else if (head.y >= boardSizeY - 1) {
+        head.setObjPos(head.x, 1, '*');
     }
+
+    //update body list
+    playerPosList->insertHead(head);
+    playerPosList->removeTail();
+
 }
 

@@ -24,8 +24,14 @@ class Player
         void movePlayer();
 
     private:
-        objPos playerPos;   // Upgrade this in iteration 3.       
+        objPos playerPos;//temp for debugging
+        objPosArrayList* playerPosList;
+        
+        
+        
+        
         enum Dir myDir;
+        
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

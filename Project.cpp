@@ -25,7 +25,7 @@ int main(void)
 {
 
     Initialize();
-
+    
     while(mechs->getExitFlagStatus() == false)  
     {
         GetInput();
@@ -73,20 +73,20 @@ void RunLogic(void)
     //get player position
     objPos playerPosition;
     playerPtr->getPlayerPos(playerPosition);
-    mechs->generateFood(playerPosition);
+    //get Food Position
+    objPos foodPosition;
+    mechs->getFoodInfo(foodPosition);
 
     switch(mechs->getInput()){
         case ' ':
-            mechs->setExitTrue();
-            break;
-        case 't':
-            mechs->incrementScore();
-            break;
-        case 'c':
-            break;
             
+            break;            
     }
-    
+
+    if(playerPosition.isPosEqual(foodPosition.x,foodPosition.y)){
+        mechs->incrementScore();
+        mechs->generateFood(playerPosition);
+    }
 
     playerPtr->updatePlayerDir();
     playerPtr->movePlayer();
@@ -95,10 +95,10 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    objPos playerPosition;
+    objPos head;
     objPos foodPosition;
     
-    playerPtr->getPlayerPos(playerPosition);
+    playerPtr->getPlayerPos(head);
     
     mechs->getFoodInfo(foodPosition);
 
@@ -107,9 +107,9 @@ void DrawScreen(void)
     for (int y = 0; y < mechs->getBoardSizeY(); y++) {
         for (int x = 0; x < mechs->getBoardSizeX(); x++) {
             
-            if (x == playerPosition.x && y == playerPosition.y) {
+            if (x == head.x && y == head.y) {
                 // Draw the player symbol
-                cout << playerPosition.getSymbol();
+                cout << head.getSymbol();
             } else if(x == foodPosition.x && y == foodPosition.y){
                 cout<< foodPosition.getSymbol();
 
@@ -124,9 +124,11 @@ void DrawScreen(void)
         // Move to the next line after each row
         cout << endl;
     }
-    cout << "\n The food Symbol is: -" << foodPosition.getSymbol()<<"-";
-
-
+    //score
+    cout << "Your Score is: " << mechs->getScore() << endl;
+    
+    //debug messages
+    cout <<"The Head X,Y is: " << head.x << ", "<< head.y <<endl;
 } 
 
 
