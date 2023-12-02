@@ -11,6 +11,6 @@ MacID: [Sargaj]
 
 StudentID: [400464371]
 
-MacID: [Insert your macID here]
+MacID: [serbezos]
 
-StudentID: [Insert your numerical student ID here]
+StudentID: [400459871]
