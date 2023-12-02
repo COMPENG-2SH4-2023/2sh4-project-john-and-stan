@@ -81,7 +81,7 @@ void GameMechs::clearInput()
 }
 
 
-void GameMechs::generateFood(objPos blockOff){
+void GameMechs::generateFood(objPosArrayList snakeBody){
     int randX, randY;
     //Use current time as seed for randomness
     srand(time(NULL));
@@ -90,9 +90,9 @@ void GameMechs::generateFood(objPos blockOff){
     int* xBitV = (int*)calloc(boardSizeX-1, sizeof(int));
     int* yBitV = (int*)calloc(boardSizeY-1, sizeof(int));
     
-    //block off used coordinates
-    xBitV[blockOff.x] = 1;
-    yBitV[blockOff.y] = 1;
+    //block off snake body coordinates
+
+    
 
     //block off walls
     xBitV[0] = 1;
@@ -104,6 +104,7 @@ void GameMechs::generateFood(objPos blockOff){
     
     //loops till it chooses non used x
     while(1){
+        
         randX = rand() % (boardSizeX-2);
         if(xBitV[randX] == 0){
             xBitV[randX] = 1;

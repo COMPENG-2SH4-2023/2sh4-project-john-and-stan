@@ -20,16 +20,19 @@ class Player
         ~Player();
 
         void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
+        bool isPlayerPos(int x, int y);
+        
         void updatePlayerDir();
         void movePlayer();
 
+        
+        void increasePlayerLength();
+
+
     private:
-        objPos playerPos;//temp for debugging
+       
+        
         objPosArrayList* playerPosList;
-        
-        
-        
-        
         enum Dir myDir;
         
 

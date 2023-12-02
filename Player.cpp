@@ -7,7 +7,7 @@ Player::Player(GameMechs* thisGMRef)
     // Initialize player position 
     int initialX = thisGMRef->getBoardSizeX() / 2;
     int initialY = thisGMRef->getBoardSizeY() / 2;
-    playerPos.setObjPos(initialX, initialY, '*');
+    
     
 
     playerPosList = new objPosArrayList();
@@ -30,7 +30,18 @@ void Player::getPlayerPos(objPos &returnPos)
     // return the reference to the playerPos arrray list
     playerPosList->getHeadElement(returnPos);
 }
+bool Player::isPlayerPos(int x, int y){
+    objPos bodyPart;
+    for(int i =0; i < playerPosList->getSize(); i++){
+        playerPosList->getElement(bodyPart,i);
 
+        if(bodyPart.x == x && bodyPart.y == y){
+            return true;
+        }
+    }
+
+    return false;
+}
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic    
@@ -126,10 +137,51 @@ void Player::movePlayer()
     } else if (head.y >= boardSizeY - 1) {
         head.setObjPos(head.x, 1, '*');
     }
+    
+    
 
     //update body list
+    // if(playerPtr->checkFoodConsumption()){
+    //     mechs->incrementScore();
+    //     playerPtr->increasePlayerLength();
+    //     mechs->generateFood(playerPosition);
+    // }
+
+    objPos food;
+    mainGameMechsRef->getFoodInfo(food);
+    if(head.x == food.x && food.y == head.y){
+        return true;
+    }
     playerPosList->insertHead(head);
     playerPosList->removeTail();
 
 }
 
+void Player::increasePlayerLength(){
+    objPos newHead;
+    playerPosList->getHeadElement(newHead);
+
+    switch (myDir) {
+        case UP:
+            newHead.setObjPos(newHead.x,newHead.y - 1, '*');
+            break;
+
+        case DOWN:
+            newHead.setObjPos(newHead.x,newHead.y + 1, '*');
+            break;
+
+        case LEFT:
+            newHead.setObjPos(newHead.x - 1, newHead.y, '*');
+            break;
+
+        case RIGHT:
+            newHead.setObjPos(newHead.x + 1, newHead.y, '*');
+            break;
+
+        default:
+            // If the state is STOP, do nothing
+            break;
+    }
+    playerPosList->insertHead(newHead);
+    
+}

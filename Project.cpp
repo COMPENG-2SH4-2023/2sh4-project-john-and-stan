@@ -70,9 +70,6 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    //get player position
-    objPos playerPosition;
-    playerPtr->getPlayerPos(playerPosition);
     //get Food Position
     objPos foodPosition;
     mechs->getFoodInfo(foodPosition);
@@ -83,10 +80,7 @@ void RunLogic(void)
             break;            
     }
 
-    if(playerPosition.isPosEqual(foodPosition.x,foodPosition.y)){
-        mechs->incrementScore();
-        mechs->generateFood(playerPosition);
-    }
+    
 
     playerPtr->updatePlayerDir();
     playerPtr->movePlayer();
@@ -98,7 +92,6 @@ void DrawScreen(void)
     objPos head;
     objPos foodPosition;
     
-    playerPtr->getPlayerPos(head);
     
     mechs->getFoodInfo(foodPosition);
 
@@ -107,9 +100,10 @@ void DrawScreen(void)
     for (int y = 0; y < mechs->getBoardSizeY(); y++) {
         for (int x = 0; x < mechs->getBoardSizeX(); x++) {
             
-            if (x == head.x && y == head.y) {
+            if (playerPtr->isPlayerPos(x,y)) {
+                
                 // Draw the player symbol
-                cout << head.getSymbol();
+                cout << "*";
             } else if(x == foodPosition.x && y == foodPosition.y){
                 cout<< foodPosition.getSymbol();
 
