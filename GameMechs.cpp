@@ -1,7 +1,13 @@
 #include "GameMechs.h"
 
+//Default Values
 GameMechs::GameMechs()
 {
+    boardSizeX = 30;
+    boardSizeY = 15;
+    
+    exitFlag = false;
+    loseFlag = false;
 
 }
 
@@ -11,6 +17,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     exitFlag = false;
     loseFlag = false;
+    score = 0;
 
 
 }
@@ -19,11 +26,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 GameMechs::~GameMechs()
 {
-    boardSizeX = 30
-    boardSizeY = 15
-    
-    exitFlag = false;
-    loseFlag = false;
+
 }
 
 
@@ -49,6 +52,13 @@ int GameMechs::getBoardSizeY()
     return boardSizeY;
 }
 
+int GameMechs::getScore(){
+    return score;
+}
+
+void GameMechs::incrementScore(){
+    score++;
+}
 
 void GameMechs::setExitTrue()
 {

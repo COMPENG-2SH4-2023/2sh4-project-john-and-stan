@@ -65,7 +65,10 @@ void RunLogic(void)
 {
     if(mechs->getInput() == ' '){
         mechs->setExitTrue();
+    }else if(mechs->getInput() == 't'){
+        mechs->incrementScore();
     }
+
     playerPtr->updatePlayerDir();
     playerPtr->movePlayer();
 }
@@ -93,12 +96,8 @@ void DrawScreen(void)
         // Move to the next line after each row
         cout << endl;
     }
-    printf("\n");
-    cout << "The xSize is "<< mechs->getBoardSizeX();
-    printf("\n");
-    cout << "The ySize is "<< mechs->getBoardSizeY() << endl; 
-    // Debugging: Print input to confirm it is being received
-    cout << "Input received: " << mechs->getInput() << endl;
+    cout << "\n The Score is: " << mechs->getScore();
+
 
 } 
 
