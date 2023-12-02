@@ -8,6 +8,7 @@ GameMechs::GameMechs()
     
     exitFlag = false;
     loseFlag = false;
+    score = 0;
 
 }
 
@@ -18,6 +19,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 0;
+    food.symbol = '!';
 
 
 }
@@ -79,3 +81,53 @@ void GameMechs::clearInput()
 }
 
 
+void GameMechs::generateFood(objPos blockOff){
+    int randX, randY;
+    //Use current time as seed for randomness
+    srand(time(NULL));
+
+    //creates bitvectors to choose nonused x,y coordinates
+    int* xBitV = (int*)calloc(boardSizeX-1, sizeof(int));
+    int* yBitV = (int*)calloc(boardSizeY-1, sizeof(int));
+    
+    //block off used coordinates
+    xBitV[blockOff.x] = 1;
+    yBitV[blockOff.y] = 1;
+
+    //block off walls
+    xBitV[0] = 1;
+    xBitV[boardSizeX-1] = 1;
+
+    yBitV[0] = 1;
+    yBitV[boardSizeY-1] = 1;
+
+    
+    //loops till it chooses non used x
+    while(1){
+        randX = rand() % (boardSizeX-2);
+        if(xBitV[randX] == 0){
+            xBitV[randX] = 1;
+            break;
+        }
+    }
+    //loops till it chooses non used y
+    while(1){
+        randY = rand() % (boardSizeY-2);
+        if(yBitV[randY] == 0){
+            yBitV[randY] = 1;
+            break;
+        }
+    }
+
+    food.x = randX;
+    food.y = randY;
+
+    free(xBitV);
+    free(yBitV);
+    
+}
+
+void GameMechs::getFoodInfo(objPos &returnPos){
+    returnPos.setObjPos(food);
+    
+}
