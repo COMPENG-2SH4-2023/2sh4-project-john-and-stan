@@ -52,7 +52,7 @@ class GameMechs
         int getBoardSizeX();
         int getBoardSizeY();
       
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList *snakeBody);
         void getFoodInfo(objPos &returnPos);
 };
 

@@ -81,7 +81,7 @@ void GameMechs::clearInput()
 }
 
 
-void GameMechs::generateFood(objPosArrayList snakeBody){
+void GameMechs::generateFood(objPosArrayList *snakeBody){
     int randX, randY;
     //Use current time as seed for randomness
     srand(time(NULL));
@@ -91,6 +91,12 @@ void GameMechs::generateFood(objPosArrayList snakeBody){
     int* yBitV = (int*)calloc(boardSizeY-1, sizeof(int));
     
     //block off snake body coordinates
+    objPos bodyPart;
+    for(int i = 0; i < snakeBody->getSize(); i++){
+        snakeBody->getElement(bodyPart,i);
+        xBitV[bodyPart.x] = 1;
+        yBitV[bodyPart.y] = 1;
+    }
 
     
 

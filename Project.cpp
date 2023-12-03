@@ -47,10 +47,10 @@ void Initialize(void)
     mechs = new GameMechs(30,15);
     playerPtr = new Player(mechs);
     
-    //Generate first food
-    objPos playerPosition;
-    playerPtr->getPlayerPos(playerPosition);
-    mechs->generateFood(playerPosition);
+    
+    
+    
+    MacUILib_Delay(DELAY_CONST*50); // 0.1s delay
 
     
     
@@ -73,15 +73,6 @@ void RunLogic(void)
     //get Food Position
     objPos foodPosition;
     mechs->getFoodInfo(foodPosition);
-
-    switch(mechs->getInput()){
-        case ' ':
-            
-            break;            
-    }
-
-    
-
     playerPtr->updatePlayerDir();
     playerPtr->movePlayer();
 }
@@ -122,7 +113,7 @@ void DrawScreen(void)
     cout << "Your Score is: " << mechs->getScore() << endl;
     
     //debug messages
-    cout <<"The Head X,Y is: " << head.x << ", "<< head.y <<endl;
+    
 } 
 
 
