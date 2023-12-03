@@ -126,7 +126,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    //MacUILib_clearScreen();    
+    MacUILib_clearScreen();    
     if(mechs->getLoseFlagStatus()){
         cout << "You have lost! Better luck next time :)" << endl;
     }else{
