@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <iostream>
 Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
@@ -143,8 +143,11 @@ void Player::movePlayer()
         head.setObjPos(head.x, 1, '*');
     }
     
+    if(checkSelfCollision()){
+        mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseTrue();
+    }
     
-
     if(checkFoodConsumption()){
         mainGameMechsRef->incrementScore();
         increasePlayerLength();
@@ -152,37 +155,38 @@ void Player::movePlayer()
     }
     playerPosList->insertHead(head);
     playerPosList->removeTail();
+    
 
     
 
 }
 
 void Player::increasePlayerLength(){
-    objPos newHead;
-    playerPosList->getHeadElement(newHead);
+    objPos newTail;
+    playerPosList->getTailElement(newTail);
 
     switch (myDir) {
-        case UP:
-            newHead.setObjPos(newHead.x,newHead.y - 1, '*');
-            break;
-
         case DOWN:
-            newHead.setObjPos(newHead.x,newHead.y + 1, '*');
+            newTail.setObjPos(newTail.x,newTail.y - 1, '*');
             break;
 
-        case LEFT:
-            newHead.setObjPos(newHead.x - 1, newHead.y, '*');
+        case UP:
+            newTail.setObjPos(newTail.x,newTail.y + 1, '*');
             break;
 
         case RIGHT:
-            newHead.setObjPos(newHead.x + 1, newHead.y, '*');
+            newTail.setObjPos(newTail.x - 1, newTail.y, '*');
+            break;
+
+        case LEFT:
+            newTail.setObjPos(newTail.x + 1, newTail.y, '*');
             break;
 
         default:
             // If the state is STOP, do nothing
             break;
     }
-    playerPosList->insertHead(newHead);
+    playerPosList->insertTail(newTail);
     
 }
 
@@ -199,4 +203,29 @@ bool Player::checkFoodConsumption(){
 
 
     return 0;
+}
+
+bool Player::checkSelfCollision(){
+    objPos head;
+    objPos bodyPart;
+    if(playerPosList->getSize() < 4){
+        //snake head cannot collide with itself with only 3 parts
+        //because it can not reverse in the same direction
+        return false;
+    }
+
+    playerPosList->getHeadElement(head);
+
+
+    for(int i = 4; i < playerPosList->getSize(); i++){
+        playerPosList->getElement(bodyPart,i);
+        
+        if(head.x == bodyPart.x && head.y == bodyPart.y){
+            cout <<"Collision Detected!"<<"\n";
+            cout <<"The head coordinates are: " <<head.x << ", " << head.y <<"\n";
+            cout <<"It collided with bodyPart " << i<< " and its coordinates are: " <<bodyPart.x << ", " <<bodyPart.y<<"\n";
+            return true;
+        }
+    }
+    return false;
 }

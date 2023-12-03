@@ -70,15 +70,14 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    //get Food Position
-    objPos foodPosition;
-    mechs->getFoodInfo(foodPosition);
+    
     playerPtr->updatePlayerDir();
     playerPtr->movePlayer();
 }
 
 void DrawScreen(void)
 {
+
     MacUILib_clearScreen();
     objPos head;
     objPos foodPosition;
@@ -126,8 +125,13 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
-    
+    //MacUILib_clearScreen();    
+    if(mechs->getLoseFlagStatus()){
+        cout << "You have lost! Better luck next time :)" << endl;
+    }else{
+        cout<< "You have quit!" <<endl;
+    }
+
     delete mechs;
     delete playerPtr;
     MacUILib_uninit();
