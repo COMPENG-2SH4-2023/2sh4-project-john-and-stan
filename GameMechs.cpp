@@ -18,8 +18,9 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     exitFlag = false;
     loseFlag = false;
-    score = 0;
+    score = 1;
     food.symbol = '!';
+
 
 
 }
