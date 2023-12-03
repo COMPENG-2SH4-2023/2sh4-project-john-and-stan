@@ -60,25 +60,28 @@ void Player::updatePlayerDir()
                 mainGameMechsRef->setExitTrue();
                 break;
 
-            // Add more key processing here
+            // If w is pressed and player isn't moving down, move up
             case 'w':
                 if (myDir != DOWN) {
                     myDir = UP;
                 }
                 break;
 
+            // If s is pressed and player isn't moving up, move down
             case 's':
                 if (myDir != UP) {
                     myDir = DOWN;
                 }
                 break;
 
+            // If a is pressed and player isn't moving right, move left
             case 'a':
                 if (myDir != RIGHT) {
                     myDir = LEFT;
                 }
                 break;
 
+            // If d is pressed and player isn't moving left, move right
             case 'd':
                 if (myDir != LEFT) {
                     myDir = RIGHT;
@@ -100,21 +103,24 @@ void Player::movePlayer()
     objPos head;
     playerPosList->getHeadElement(head);
     
-    
+    //Moves player based on myDir
     switch (myDir) {
+        //y-value is decremented and x stays the same when moving up
         case UP:
             head.setObjPos(head.x,head.y - 1, '*');
             break;
 
+        //y-value is incremented and x stays the same when moving down
         case DOWN:
-            
             head.setObjPos(head.x,head.y + 1, '*');
             break;
 
+        //x-value is decremented and y stays the same when moving left
         case LEFT:
             head.setObjPos(head.x - 1, head.y, '*');
             break;
 
+        //x-value is incremented and y stays the same when moving right
         case RIGHT:
             head.setObjPos(head.x + 1, head.y, '*');
             break;
@@ -128,18 +134,27 @@ void Player::movePlayer()
 
 
     // PPA3 Boarder wraparound logic
+    // Getting size of the board
     int boardSizeX = mainGameMechsRef->getBoardSizeX();
     int boardSizeY = mainGameMechsRef->getBoardSizeY();
 
+    // X-Direction Wraparound
+    // If the player reaches the left boarder, position gets set to the right side of the board without going into the boarder
     if (head.x <= 0) {
         head.setObjPos(boardSizeX - 2, head.y, '*');
-    } else if (head.x >= boardSizeX - 1) {
+    } 
+    // If the player reaches the right boarder, position gets set to the left side of the board without going into the boarder
+    else if (head.x >= boardSizeX - 1) {
         head.setObjPos(1, head.y, '*');
     }
 
+    // Y-Direction Wraparound
+    // If the player reaches the top boarder, position gets set to the bottom of the board without going into the boarder
     if (head.y <= 0) {
         head.setObjPos(head.x, boardSizeY - 2, '*');
-    } else if (head.y >= boardSizeY - 1) {
+    } 
+    // If the player reaches the bottom boarder, position gets set to the top of the board without going into the boarder
+    else if (head.y >= boardSizeY - 1) {
         head.setObjPos(head.x, 1, '*');
     }
     

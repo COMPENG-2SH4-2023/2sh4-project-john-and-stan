@@ -63,20 +63,20 @@ void objPosArrayList::removeTail()
 void objPosArrayList::getHeadElement(objPos &returnPos)
 {
     if (sizeList > 0) {
-        returnPos = aList[0];
+        returnPos = aList[0]; //Gets the position of the head element
     }
 }
 
 void objPosArrayList::getTailElement(objPos &returnPos)
 {
     if (sizeList > 0) {
-        returnPos = aList[sizeList - 1];
+        returnPos = aList[sizeList - 1]; //Gets the position of the tail element
     }
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index)
 {
     if (index >= 0 && index < sizeList) {
-        returnPos = aList[index];
+        returnPos = aList[index]; //Gets the position of the element specified by index
     }
 }
