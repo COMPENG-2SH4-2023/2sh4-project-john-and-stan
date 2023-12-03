@@ -4,14 +4,12 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    // Initialize player position 
+    // Initialize player position to middle of the board
     int initialX = thisGMRef->getBoardSizeX() / 2;
     int initialY = thisGMRef->getBoardSizeY() / 2;
-    
-    
-
     playerPosList = new objPosArrayList();
     objPos startingState;
+    
     startingState.setObjPos(initialX,initialY,'*');
     playerPosList->insertHead(startingState);
 
@@ -29,13 +27,16 @@ Player::~Player()
 
 void Player::getPlayerPosHead(objPos &returnPos)
 {
-    // return the reference to the playerPos arrray list
+    //changes passed objPos to head element
     playerPosList->getHeadElement(returnPos);
 }
+
 objPosArrayList Player::getPlayerPosList(){
     return *playerPosList;
 }
+
 bool Player::isPlayerPos(int x, int y){
+    
     objPos bodyPart;
     for(int i =0; i < playerPosList->getSize(); i++){
         playerPosList->getElement(bodyPart,i);
