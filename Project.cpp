@@ -60,11 +60,12 @@ void Initialize(void)
 
 void GetInput(void)
 {
+   // Checking to see if there has been an input, if there was an input, set it
    if(MacUILib_hasChar()){
             mechs->setInput(MacUILib_getChar());
             
     }else{
-            mechs->setInput(0);
+            mechs->setInput(0); // If no input detected set input to 0
     }
 }
 

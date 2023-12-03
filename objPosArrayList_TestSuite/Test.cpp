@@ -353,8 +353,94 @@ void testRemoveTail_5Element()
 	// The destructor will be called automatically for stack-allocated objects
 }
 
+void testInsertHead_3Element()
+{
+	objPos currentPos;
+	objPos bodyPos{3, 7, '*'};  
+	objPos headPos{4, 5, '<'};
 
+	// Insert 2 body elements, then 1 head element
+	objPosArrayList thisList;
+	thisList.insertHead(bodyPos);
+	thisList.insertHead(bodyPos);
+	thisList.insertHead(headPos);
 
+	int expectedSize = 3;
+	int actualSize = thisList.getSize();
+		
+	// Confirm the list size is now 3
+	ASSERT_EQUAL(expectedSize, actualSize);
+
+	bool expectedCheck = true;
+	bool actualCheck;
+
+	// Then, check the head element is the unique element
+	thisList.getHeadElement(currentPos);
+	actualCheck = headPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// Next, chech the body elements at indexes
+	for(int i = 1; i < actualSize - 1; i++)
+	{
+		thisList.getElement(currentPos, i);
+		actualCheck = bodyPos.isPosEqual(&currentPos);
+
+		ASSERT_EQUAL(expectedCheck, actualCheck);	
+	}
+
+	// Finally, check the tail element is the body element
+	thisList.getTailElement(currentPos);
+	actualCheck = bodyPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// The destructor will be called automatically for stack-allocated objects
+}
+
+void testInsertTail_2Element()
+{
+	objPos currentPos;
+	objPos bodyPos{1, 1, '*'};  
+	objPos tailPos{1, 2, '<'};
+
+	// Insert 1 body element, then 1 head element
+	objPosArrayList thisList;
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(tailPos);
+
+	int expectedSize = 2;
+	int actualSize = thisList.getSize();
+		
+	// Confirm the list size is now 2
+	ASSERT_EQUAL(expectedSize, actualSize);
+
+	bool expectedCheck = true;
+	bool actualCheck;
+
+	// Then, check the head element is the common body element
+	thisList.getHeadElement(currentPos);
+	actualCheck = bodyPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// Next, chech the body elements at indexes
+	for(int i = 1; i < actualSize - 1; i++)
+	{
+		thisList.getElement(currentPos, i);
+		actualCheck = bodyPos.isPosEqual(&currentPos);
+
+		ASSERT_EQUAL(expectedCheck, actualCheck);	
+	}
+
+	// Finally, check the tail element is the body element
+	thisList.getTailElement(currentPos);
+	actualCheck = tailPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// The destructor will be called automatically for stack-allocated objects
+}
 
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s;
@@ -373,6 +459,8 @@ bool runAllTests(int argc, char const *argv[]) {
 
 
 	//TODO add your test here
+	s.push_back(CUTE(testInsertHead_3Element));
+	s.push_back(CUTE(testInsertTail_2Element));
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);
