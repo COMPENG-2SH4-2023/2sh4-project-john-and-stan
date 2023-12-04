@@ -27,7 +27,7 @@ class GameMechs
 
         int boardSizeX;
         int boardSizeY;
-
+        float speed;
         objPosArrayList* foodList;
 
     public:
@@ -40,6 +40,8 @@ class GameMechs
         bool getExitFlagStatus();
         bool getLoseFlagStatus();
         int getScore();
+        float getSpeed();
+        void setSpeed(float newSpeed);
 
         void incrementScore();
         void setExitTrue();

@@ -176,7 +176,10 @@ void Player::movePlayer()
                 playerPosList->removeTail();
             }
         }else if(foodType == 2){
-            
+            for(int i = 0; i < 10;i++){
+                mainGameMechsRef->incrementScore();
+                increasePlayerLength();
+            }
         }else{
 
         }

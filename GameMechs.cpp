@@ -20,6 +20,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 1;
+    speed = 1;
     foodList = new objPosArrayList();
 
 }
@@ -113,7 +114,7 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     //generates 5 pieces of Food
     
     //chooses to add 1 or 2 powerups
-    randNum = rand()%2 + 1;
+    randNum = rand()%2+1;
 
     for(int i = 0; i < 5 - randNum; i++){
 
@@ -195,4 +196,11 @@ bool GameMechs::isFoodPos(int x, int y){
     }
 
     return false;
+}
+
+float GameMechs::getSpeed(){
+    return speed;
+}
+void GameMechs::setSpeed(float newSpeed){
+    speed = newSpeed;
 }
