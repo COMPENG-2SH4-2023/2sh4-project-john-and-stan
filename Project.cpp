@@ -81,21 +81,23 @@ void DrawScreen(void)
 
     MacUILib_clearScreen();
     objPos head;
-    objPos foodPosition;
     
+    objPos food;
+    objPosArrayList foodList;
     
-    mechs->getFoodInfo(foodPosition);
+    mechs->getFoodInfo(foodList);
 
 
     // Draw the player at its position on the board
     for (int y = 0; y < mechs->getBoardSizeY(); y++) {
         for (int x = 0; x < mechs->getBoardSizeX(); x++) {
-            
             if (playerPtr->isPlayerPos(x,y)) {
-                
                 // Draw the player symbol
                 cout << "*";
-            } else if(x == foodPosition.x && y == foodPosition.y){
+            } else if(1){
+                for(int i = 0; i < foodList.getSize(); i++){
+                    
+                }
                 cout<< foodPosition.getSymbol();
 
             }else if (x == 0 || x == mechs->getBoardSizeX() - 1 || y == 0 || y == mechs->getBoardSizeY() - 1) {

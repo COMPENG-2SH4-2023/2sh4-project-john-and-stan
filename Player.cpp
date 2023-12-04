@@ -163,11 +163,23 @@ void Player::movePlayer()
         mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseTrue();
     }
-    
-    if(checkFoodConsumption()){
-        mainGameMechsRef->incrementScore();
-        increasePlayerLength();
-        mainGameMechsRef->generateFood(playerPosList);
+
+    int foodType = checkFoodConsumption();
+    if(foodType > -1){
+        if(foodType == 0){
+            mainGameMechsRef->incrementScore();
+            increasePlayerLength();
+            mainGameMechsRef->generateFood(playerPosList);
+        }else if(foodType == 1){
+            //removes half the snake's body
+            for(int i = 0; i < (playerPosList->getSize() / 2); i++){
+                playerPosList->removeTail();
+            }
+        }else if(foodType == 2){
+            
+        }else{
+
+        }
     }
     playerPosList->insertHead(head);
     playerPosList->removeTail();
@@ -206,19 +218,42 @@ void Player::increasePlayerLength(){
     
 }
 
-bool Player::checkFoodConsumption(){
+int Player::checkFoodConsumption(){
     objPos head;
+    objPosArrayList foodList;
     objPos food;
     
     playerPosList->getHeadElement(head);
-    mainGameMechsRef->getFoodInfo(food);
+    mainGameMechsRef->getFoodInfo(foodList);
 
-    if(head.x == food.x && head.y == food.y){
-        return 1;
+    for(int i = 0; i < foodList.getSize(); i++){
+        foodList.getElement(food,i);
+        if(head.x == food.x && head.y == food.y){
+            //returns between 0-3 depending on food type
+            switch (food.symbol)
+            {
+            case '*':
+                return 0;
+                break;
+            case '%':
+                return 1;
+                break;
+            case '$':
+                return 2;
+                break;
+            case '>':
+                return 3;
+                break;
+            
+            default:
+                break;
+            }
+            
+        }
     }
 
-
-    return 0;
+    //returns -1 if there is no collision
+    return -1;
 }
 
 bool Player::checkSelfCollision(){
@@ -237,9 +272,6 @@ bool Player::checkSelfCollision(){
         playerPosList->getElement(bodyPart,i);
         
         if(head.x == bodyPart.x && head.y == bodyPart.y){
-            cout <<"Collision Detected!"<<"\n";
-            cout <<"The head coordinates are: " <<head.x << ", " << head.y <<"\n";
-            cout <<"It collided with bodyPart " << i<< " and its coordinates are: " <<bodyPart.x << ", " <<bodyPart.y<<"\n";
             return true;
         }
     }

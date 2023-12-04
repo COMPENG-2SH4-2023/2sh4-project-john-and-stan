@@ -6,6 +6,7 @@ GameMechs::GameMechs()
     boardSizeX = 30;
     boardSizeY = 15;
     
+    
     exitFlag = false;
     loseFlag = false;
     score = 0;
@@ -19,9 +20,6 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 1;
-    food.symbol = '!';
-
-
 
 }
 
@@ -83,7 +81,7 @@ void GameMechs::clearInput()
 
 
 void GameMechs::generateFood(objPosArrayList *snakeBody){
-    int randX, randY;
+    int randX, randY, randPower, randNum;
     //Use current time as seed for randomness
     srand(time(NULL));
 
@@ -99,43 +97,80 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
         yBitV[bodyPart.y] = 1;
     }
 
-    
-
     //block off walls
     xBitV[0] = 1;
     xBitV[boardSizeX-2] = 1;
 
     yBitV[0] = 1;
     yBitV[boardSizeY-2] = 1;
-
     
-    //loops till it chooses non used x
-    while(1){
-        
-        randX = rand() % (boardSizeX-2);
-        if(xBitV[randX] == 0){
-            xBitV[randX] = 1;
-            break;
-        }
-    }
-    //loops till it chooses non used y
-    while(1){
-        randY = rand() % (boardSizeY-2);
-        if(yBitV[randY] == 0){
-            yBitV[randY] = 1;
-            break;
-        }
-    }
+    objPos food;
+    //generates 5 pieces of Food
+    
+    //chooses to add 1 or 2 powerups
+    randNum = rand()%2;
 
-    food.x = randX;
-    food.y = randY;
+    for(int i = 0; i < 5 - randNum; i++){
+
+        //loops till it chooses non used x
+        while(1){
+            randX = rand() % (boardSizeX-2);
+            if(xBitV[randX] == 0){
+                xBitV[randX] = 1;
+                break;
+            }
+        }
+        //loops till it chooses non used y
+        while(1){
+            randY = rand() % (boardSizeY-2);
+            if(yBitV[randY] == 0){
+                yBitV[randY] = 1;
+                break;
+            }
+        }
+        //adds it to food list
+        food.setObjPos(randX,randY,'*');
+        foodList->insertTail(food);
+        //only runs powerup generation in last loop
+        if(i == (5-randNum)){
+            for(int j = 0; j < randNum; j++){
+                //chooses which powerup to add
+                randPower = rand() % 3;
+                if(randPower == 1){
+                    //cuts the snake body in half
+                    food.setObjPos(randX,randY, '%');
+
+                }else if(randPower== 2){
+                    //Power gives snake 10 more points and length
+                    food.setObjPos(randX,randY, '$');
+
+                }else{
+                    //power increases snake speed
+                    food.setObjPos(randX,randY, '>');
+                }
+
+                //blocks off coordinates of food so new food is not generated in the same spot
+                xBitV[randX] = 1;
+                yBitV[randY] = 1;
+
+                //adds it to food list
+                foodList->insertTail(food);
+            }
+
+        }
+
+    }    
 
     free(xBitV);
     free(yBitV);
     
 }
 
-void GameMechs::getFoodInfo(objPos &returnPos){
-    returnPos.setObjPos(food);
+void GameMechs::getFoodInfo(objPosArrayList &returnList){
+    objPos food;
+    for(int i = 0; i < foodList.getSize();i++){
+        foodList->getElement(food,i);
+        returnList.insertTail(food);
+    }
     
 }
