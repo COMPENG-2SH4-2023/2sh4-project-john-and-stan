@@ -54,6 +54,7 @@ class GameMechs
       
         void generateFood(objPosArrayList *snakeBody);
         void getFoodInfo(objPosArrayList &returnList);
+        bool isFoodPos(int x, int y);
 };
 
 #endif

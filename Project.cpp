@@ -94,7 +94,7 @@ void DrawScreen(void)
             if (playerPtr->isPlayerPos(x,y)) {
                 // Draw the player symbol
                 cout << "*";
-            } else if(1){
+            } else if(mechs->isFoodPos(x,y)){
                 for(int i = 0; i < foodList.getSize(); i++){
                     foodList.getElement(food,i);
                     if(food.x == x && food.y == y){
