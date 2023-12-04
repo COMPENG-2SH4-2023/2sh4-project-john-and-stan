@@ -175,13 +175,15 @@ void Player::movePlayer()
             increasePlayerLength();
         }else if(foodType == 1){
             //removes half the snake's body
-            for(int i = 0; i < (playerPosList->getSize() / 2); i++){
+            int halfSize = playerPosList->getSize() / 2;
+            for(int i = 0; i < (halfSize); i++){
                 playerPosList->removeTail();
             }
         }else if(foodType == 2){
             //increasing score by 10
             for(int i = 0; i < 10;i++){
                 mainGameMechsRef->incrementScore();
+                
                 
             }
         }else{
