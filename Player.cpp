@@ -181,7 +181,12 @@ void Player::movePlayer()
                 increasePlayerLength();
             }
         }else{
+            // Obtaining current speed
+            float currentSpeed = mainGameMechsRef->getSpeed();
 
+            // Adjusting speed
+            float newSpeed = currentSpeed * 0.001;  // Increase speed by 5%
+            mainGameMechsRef->setSpeed(newSpeed);
         }
     }
     playerPosList->insertHead(head);
