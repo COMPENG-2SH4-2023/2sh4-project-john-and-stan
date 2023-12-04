@@ -165,9 +165,12 @@ void Player::movePlayer()
     }
 
     int foodType = checkFoodConsumption();
+    //checks collision
     if(foodType > -1){
+        //generate food
         mainGameMechsRef->generateFood(playerPosList);
         if(foodType == 0){
+            //regular food 
             mainGameMechsRef->incrementScore();
             increasePlayerLength();
         }else if(foodType == 1){
@@ -176,9 +179,10 @@ void Player::movePlayer()
                 playerPosList->removeTail();
             }
         }else if(foodType == 2){
+            //increasing score by 10
             for(int i = 0; i < 10;i++){
                 mainGameMechsRef->incrementScore();
-                increasePlayerLength();
+                
             }
         }else{
             // Obtaining current speed

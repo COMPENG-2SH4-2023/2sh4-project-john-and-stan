@@ -5,11 +5,15 @@ GameMechs::GameMechs()
 {
     boardSizeX = 30;
     boardSizeY = 15;
-    
-    
+
     exitFlag = false;
     loseFlag = false;
+    
     score = 0;
+    
+    speed = 1;
+    
+    foodList = new objPosArrayList();
 
 }
 
@@ -17,10 +21,14 @@ GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX = boardX;
     boardSizeY = boardY;
+    
     exitFlag = false;
     loseFlag = false;
+    
     score = 1;
+    
     speed = 1;
+    
     foodList = new objPosArrayList();
 
 }
@@ -87,9 +95,10 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     //Use current time as seed for randomness
     srand(time(NULL));
 
-    for(int i = 0; i < foodList->getSize(); i++){
+    for(int i = 0; i <= foodList->getSize(); i++){
         foodList->removeTail();
     }
+    
 
     //creates bitvectors to choose nonused x,y coordinates
     int* xBitV = (int*)calloc(boardSizeX-1, sizeof(int));
@@ -111,12 +120,14 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     yBitV[boardSizeY-2] = 1;
     
     objPos food;
-    //generates 5 pieces of Food
+    //generates 5+ pieces of Food
     
     //chooses to add 1 or 2 powerups
     powerupNum = rand()%2+1;
+    //number of regular powers
     int regularNum = 5-powerupNum;
-    for(int i = 0; i < regularNum; i++){
+
+    for(int i = 0; i <regularNum; i++){
 
         //loops till it chooses non used x
         while(1){
@@ -145,6 +156,7 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
 
     for(int j = 0; j < powerupNum; j++){
         
+        //loops till it chooses non used x
         while(1){
             randX = rand() % (boardSizeX-2);
             if(xBitV[randX] == 0){
@@ -201,7 +213,7 @@ void GameMechs::getFoodInfo(objPosArrayList &returnList){
 
 
 bool GameMechs::isFoodPos(int x, int y){
-    
+    //checks if any food is att the position
     objPos food;
     for(int i =0; i < foodList->getSize(); i++){
         foodList->getElement(food,i);
