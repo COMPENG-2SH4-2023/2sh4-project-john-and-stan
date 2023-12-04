@@ -114,7 +114,7 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     //generates 5 pieces of Food
     
     //chooses to add 1 or 2 powerups
-    randNum = rand()%2;
+    randNum = rand()%2+1;
 
     for(int i = 0; i < 5 - randNum; i++){
 
