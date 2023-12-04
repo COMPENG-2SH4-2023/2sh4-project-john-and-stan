@@ -96,9 +96,11 @@ void DrawScreen(void)
                 cout << "*";
             } else if(1){
                 for(int i = 0; i < foodList.getSize(); i++){
-                    
+                    foodList.getElement(food,i);
+                    if(food.x == x && food.y == y){
+                        cout<< food.getSymbol();
+                    }
                 }
-                cout<< foodPosition.getSymbol();
 
             }else if (x == 0 || x == mechs->getBoardSizeX() - 1 || y == 0 || y == mechs->getBoardSizeY() - 1) {
                 // Draw border

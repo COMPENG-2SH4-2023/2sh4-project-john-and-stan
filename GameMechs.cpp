@@ -168,7 +168,7 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
 
 void GameMechs::getFoodInfo(objPosArrayList &returnList){
     objPos food;
-    for(int i = 0; i < foodList.getSize();i++){
+    for(int i = 0; i < foodList->getSize();i++){
         foodList->getElement(food,i);
         returnList.insertTail(food);
     }
