@@ -95,10 +95,12 @@ void DrawScreen(void)
                 // Draw the player symbol
                 cout << "*";
             } else if(mechs->isFoodPos(x,y)){
+                // Only print the first food symbol found at this position
                 for(int i = 0; i < foodList.getSize(); i++){
                     foodList.getElement(food,i);
                     if(food.x == x && food.y == y){
                         cout<< food.getSymbol();
+                        break;  // Exit the loop after printing the first food symbol
                     }
                 }
 

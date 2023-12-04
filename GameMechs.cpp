@@ -144,6 +144,21 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     }    
 
     for(int j = 0; j < randNum; j++){
+        while(1){
+            randX = rand() % (boardSizeX-2);
+            if(xBitV[randX] == 0){
+                xBitV[randX] = 1;
+                break;
+            }
+        }
+        //loops till it chooses non used y
+        while(1){
+            randY = rand() % (boardSizeY-2);
+            if(yBitV[randY] == 0){
+                yBitV[randY] = 1;
+                break;
+            }
+        }
         //chooses which powerup to add
         randPower = rand() % 3;
         if(randPower == 1){
