@@ -176,7 +176,10 @@ void Player::movePlayer()
                 playerPosList->removeTail();
             }
         }else if(foodType == 2){
-            
+            for(int i = 0; i < 10;i++){
+                mainGameMechsRef->incrementScore();
+                increasePlayerLength();
+            }
         }else{
 
         }
@@ -232,7 +235,7 @@ int Player::checkFoodConsumption(){
             //returns between 0-3 depending on food type
             switch (food.symbol)
             {
-            case '*':
+            case '!':
                 return 0;
                 break;
             case '%':

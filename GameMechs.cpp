@@ -20,6 +20,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 1;
+    speed = 1;
     foodList = new objPosArrayList();
 
 }
@@ -195,4 +196,11 @@ bool GameMechs::isFoodPos(int x, int y){
     }
 
     return false;
+}
+
+float GameMechs::getSpeed(){
+    return speed;
+}
+void GameMechs::setSpeed(float newSpeed){
+    speed = newSpeed;
 }
