@@ -166,10 +166,10 @@ void Player::movePlayer()
 
     int foodType = checkFoodConsumption();
     if(foodType > -1){
+        mainGameMechsRef->generateFood(playerPosList);
         if(foodType == 0){
             mainGameMechsRef->incrementScore();
             increasePlayerLength();
-            mainGameMechsRef->generateFood(playerPosList);
         }else if(foodType == 1){
             //removes half the snake's body
             for(int i = 0; i < (playerPosList->getSize() / 2); i++){

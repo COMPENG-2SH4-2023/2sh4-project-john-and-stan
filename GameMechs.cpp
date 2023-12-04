@@ -83,7 +83,7 @@ void GameMechs::clearInput()
 
 
 void GameMechs::generateFood(objPosArrayList *snakeBody){
-    int randX, randY, randPower, randNum;
+    int randX, randY, randPower, powerupNum;
     //Use current time as seed for randomness
     srand(time(NULL));
 
@@ -114,9 +114,9 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
     //generates 5 pieces of Food
     
     //chooses to add 1 or 2 powerups
-    randNum = rand()%2+1;
-
-    for(int i = 0; i < 5 - randNum; i++){
+    powerupNum = rand()%2+1;
+    int regularNum = 5-powerupNum;
+    for(int i = 0; i < regularNum; i++){
 
         //loops till it chooses non used x
         while(1){
@@ -143,7 +143,8 @@ void GameMechs::generateFood(objPosArrayList *snakeBody){
 
     }    
 
-    for(int j = 0; j < randNum; j++){
+    for(int j = 0; j < powerupNum; j++){
+        
         while(1){
             randX = rand() % (boardSizeX-2);
             if(xBitV[randX] == 0){
