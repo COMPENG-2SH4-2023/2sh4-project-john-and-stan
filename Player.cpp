@@ -185,7 +185,7 @@ void Player::movePlayer()
             float currentSpeed = mainGameMechsRef->getSpeed();
 
             // Adjusting speed
-            float newSpeed = currentSpeed * 0.001;  // Increase speed by 5%
+            float newSpeed = currentSpeed * 0.80;  // Increase speed by 20%
             mainGameMechsRef->setSpeed(newSpeed);
         }
     }
